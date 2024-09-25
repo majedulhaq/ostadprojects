@@ -1,0 +1,6 @@
+{
+    "files.autoSaveWhenNoErrors": true,
+    "dart.flutterHotReloadOnSave": "allIfDirty",
+    "files.autoSave": "afterDelay",
+    "dart.hotReloadOnSave": "allIfDirty"
+}
