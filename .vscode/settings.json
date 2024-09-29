@@ -1,6 +1,38 @@
 {
     "files.autoSaveWhenNoErrors": true,
-    "dart.flutterHotReloadOnSave": "allIfDirty",
+    "dart.flutterHotReloadOnSave": "all",
     "files.autoSave": "afterDelay",
-    "dart.hotReloadOnSave": "allIfDirty"
+    "dart.hotReloadOnSave": "all",
+    "files.autoSaveDelay": 500,
+    "files.autoSaveWorkspaceFilesOnly": true,
+    "dart.flutterOutline": false,
+    "launch": {
+        "configurations": [],
+        "compounds": []
+    },
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        }
+    },
+    "dart.showInspectorNotificationsForWidgetErrors": false,
+    "dart.shareDevToolsWithFlutter": true,
+    "dart.flutterGenerateLocalizationsOnSave": "all",
+    "debug.console.closeOnEnd": false,
+    "dart.flutterAdbConnectOnChromeOs": true
 }
