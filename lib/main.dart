@@ -1,13 +1,9 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ostadprojects/UI/Screens/splash_screen.dart';
+// import 'package:ostadprojects/UI/Screens/splash_screen.dart';
 
 void main() => runApp(
-      DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (context) => MyApp(), // Wrap your app
-      ),
+      const MyApp(),
     );
 
 class MyApp extends StatelessWidget {
@@ -20,8 +16,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        inputDecorationTheme: const InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.greenAccent)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 3, color: Colors.greenAccent)),
+            activeIndicatorBorder: const BorderSide(color: Colors.red)),
       ),
       home: const MyHomePage(),
     );
@@ -38,6 +40,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SplashScreen();
+    return  SplashScreen();
   }
+
+  
 }
