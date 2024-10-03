@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostadprojects/UI/Screens/forgot_emait_otp.dart';
+import 'package:ostadprojects/UI/Screens/loginpage.dart';
 
 class PasswordEmail extends StatefulWidget {
   const PasswordEmail({super.key});
@@ -74,6 +76,37 @@ class _PasswordEmailState extends State<PasswordEmail> {
                     ),
                   ),
                   const SizedBox(height: 35),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                   
+                  
+                        RichText(
+                          text: TextSpan(
+                            text: 'Have an account?',
+                            style: const TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                text: ' Sign In',
+                                style: const TextStyle(color: Colors.green),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Navigate to another page when "Sign in" is tapped
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()),
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

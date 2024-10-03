@@ -2,14 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostadprojects/UI/Screens/loginpage.dart';
-import 'package:ostadprojects/UI/Utils/app_colors.dart';
 
-class SignInPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +49,7 @@ class _SignInPageState extends State<SignInPage> {
                                 style: const TextStyle(color: Colors.black),
                                 children: [
                               TextSpan(
-                                text: ' Sign Up',
+                                text: ' Sign In',
                                 style: const TextStyle(color: Colors.green),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

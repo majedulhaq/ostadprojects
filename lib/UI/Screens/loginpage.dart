@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ostadprojects/UI/Screens/forgot_password_email.dart';
+import 'package:ostadprojects/UI/Screens/main_bottom_nav_bar.dart';
 import 'package:ostadprojects/UI/Screens/signuppage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,9 +19,11 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          SvgPicture.asset(
-            'assets/images/background.svg',
-            fit: BoxFit.cover,
+          Positioned.fill(
+            child: SvgPicture.asset(
+              'assets/images/background.svg',
+              fit: BoxFit.cover,
+            ),
           ),
           Center(
             child: Padding(
@@ -57,7 +60,9 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MainBottomNavBar()));
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Icon(
@@ -103,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SignInPage()),
+                                          builder: (context) => SignUpPage()),
                                     );
                                   },
                               ),

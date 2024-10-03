@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ostadprojects/UI/Screens/loginpage.dart';
+import 'package:ostadprojects/UI/Utils/app_assets.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -12,9 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     _movetoNextScreen();
   }
 
@@ -27,22 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        SvgPicture.asset(
-          'assets/images/background.svg',
-          fit: BoxFit.cover,
-       
-        ),
-        Center(
-          child: SvgPicture.asset(
-            'assets/images/logo.svg',
-            fit: BoxFit.cover,
-            // height: MediaQuery.sizeOf(context).height,
-            // width: MediaQuery.sizeOf(context).width,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: SvgPicture.asset(
+              Assets.bgImageSvg,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-      ],
-    ));
+          Center(
+            child: SvgPicture.asset(
+              Assets.logoSvg,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ostadprojects/UI/Screens/loginpage.dart';
+import 'package:ostadprojects/UI/Screens/reset_passwordscreen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class ForgotPasswordOtpScreen extends StatefulWidget {
@@ -72,7 +75,9 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _gotopasswordsetupPage();
+                      },
                       child: const Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
@@ -85,6 +90,35 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                     ),
                   ),
                   const SizedBox(height: 35),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'Have an account?',
+                            style: const TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                text: ' Sign In',
+                                style: const TextStyle(color: Colors.green),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // Navigate to another page when "Sign in" is tapped
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()),
+                                    );
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -92,5 +126,10 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
         ],
       ),
     );
+  }
+
+  void _gotopasswordsetupPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ResetPassword()));
   }
 }

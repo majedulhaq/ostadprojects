@@ -17,13 +17,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
+            labelStyle: TextStyle(color: Colors.grey),
             filled: true,
             fillColor: Colors.white,
-            enabledBorder: const OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.greenAccent)),
-            focusedBorder: const OutlineInputBorder(
+            focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(width: 3, color: Colors.greenAccent)),
-            activeIndicatorBorder: const BorderSide(color: Colors.red)),
+            activeIndicatorBorder: BorderSide(color: Colors.red)),
       ),
       home: const MyHomePage(),
     );
@@ -40,8 +41,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return  SplashScreen();
+    return SplashScreen();
   }
-
-  
 }
