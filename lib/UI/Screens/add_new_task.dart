@@ -1,23 +1,23 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ostadprojects/UI/Screens/forgot_emait_otp.dart';
 import 'package:ostadprojects/UI/Screens/loginpage.dart';
-import 'package:ostadprojects/UI/Screens/reset_passwordscreen.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:ostadprojects/UI/widgets/tmappbar.dart';
 
-class ForgotPasswordOtpScreen extends StatefulWidget {
-  const ForgotPasswordOtpScreen({super.key});
+class AddNewTask extends StatefulWidget {
+  const AddNewTask({super.key});
 
   @override
-  State<ForgotPasswordOtpScreen> createState() =>
-      _ForgotPasswordOtpScreenState();
+  State<AddNewTask> createState() => _AddNewTaskState();
 }
 
-class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
+class _AddNewTaskState extends State<AddNewTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: const TmAppbar(),
       body: Stack(
         children: [
           SvgPicture.asset(
@@ -32,38 +32,27 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Pin Varification',
+                    'Add New Task',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  const Text(
-                    'A 6 digit varification code will be sent to your Email',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 20),
-                  PinCodeTextField(
-                    length: 6,
-                    obscureText: false,
-                    animationType: AnimationType.fade,
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(5),
-                      inactiveColor: Colors.grey[200],
-                      activeColor: Colors.green,
-                      inactiveFillColor: Colors.white10,
-                      fieldHeight: 50,
-                      fieldWidth: 40,
-                      activeFillColor: Colors.white,
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: 'Subject',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(),
                     ),
-                    animationDuration: Duration(milliseconds: 300),
-                    backgroundColor: Colors.transparent,
-                    enableActiveFill: true,
-                    beforeTextPaste: (text) {
-                      print("Allowing to paste $text");
-
-                      return true;
-                    },
-                    appContext: context,
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    maxLines: 5,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: 'Description',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                   const SizedBox(height: 15),
                   SizedBox(
@@ -76,17 +65,20 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                         ),
                       ),
                       onPressed: () {
-                        _gotopasswordsetupPage();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ForgotPasswordOtpScreen()));
                       },
                       child: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Varify',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          )),
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 35),
@@ -105,12 +97,12 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
                                 style: const TextStyle(color: Colors.green),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    // Navigate to another page when "Sign in" is tapped
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const LoginPage()),
-                                    );
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()),
+                                        (predicate) => false);
                                   },
                               ),
                             ],
@@ -126,10 +118,5 @@ class _ForgotPasswordOtpScreenState extends State<ForgotPasswordOtpScreen> {
         ],
       ),
     );
-  }
-
-  void _gotopasswordsetupPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ResetPassword()));
   }
 }

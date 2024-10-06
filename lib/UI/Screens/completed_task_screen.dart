@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ostadprojects/UI/Screens/add_new_task.dart';
 
 class CompletedTaskScreen extends StatefulWidget {
   const CompletedTaskScreen({super.key});
@@ -10,8 +11,6 @@ class CompletedTaskScreen extends StatefulWidget {
 class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Completed'),
-    );
+    return const AddNewTask();
   }
 }
