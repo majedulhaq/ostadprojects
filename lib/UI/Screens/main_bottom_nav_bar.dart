@@ -3,6 +3,7 @@ import 'package:ostadprojects/UI/Screens/canceled_task_screen.dart';
 import 'package:ostadprojects/UI/Screens/completed_task_screen.dart';
 import 'package:ostadprojects/UI/Screens/new_task_screen.dart';
 import 'package:ostadprojects/UI/Screens/progress_task_screen.dart';
+import 'package:ostadprojects/UI/widgets/tmappbar.dart';
 
 class MainBottomNavBar extends StatefulWidget {
   const MainBottomNavBar({super.key});
@@ -23,6 +24,7 @@ final  List<Widget> _navePagesList = [
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TmAppbar(),
       body: _navePagesList[_selectedIndex],
       bottomNavigationBar: NavigationBar(
           indicatorColor: Colors.grey[350],
