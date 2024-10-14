@@ -15,7 +15,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TmAppbar(),
+      appBar: const TmAppbar(isUpdateProfileOpen: true,),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [

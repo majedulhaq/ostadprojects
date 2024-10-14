@@ -14,17 +14,19 @@ class MainBottomNavBar extends StatefulWidget {
 
 class _MainBottomNavBarState extends State<MainBottomNavBar> {
   int _selectedIndex = 0;
-final  List<Widget> _navePagesList = [
-    NewTaskScreen(),
-    CompletedTaskScreen(),
-    CanceledTaskScreen(),
-    ProgressTaskScreen()
+  final List<Widget> _navePagesList = [
+    const NewTaskScreen(),
+    const CompletedTaskScreen(),
+    const CanceledTaskScreen(),
+    const ProgressTaskScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TmAppbar(),
+      appBar: const TmAppbar(
+        isUpdateProfileOpen: false,
+      ),
       body: _navePagesList[_selectedIndex],
       bottomNavigationBar: NavigationBar(
           indicatorColor: Colors.grey[350],

@@ -5,13 +5,19 @@ import 'package:ostadprojects/UI/Utils/app_assets.dart';
 import 'package:ostadprojects/UI/Utils/app_colors.dart';
 
 class TmAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const TmAppbar();
+  const TmAppbar({super.key, this.isUpdateProfileOpen = false});
+
+  final bool isUpdateProfileOpen;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> UpdateProfile()));
+        if (isUpdateProfileOpen) {
+          return;
+        }
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UpdateProfile()));
       },
       child: AppBar(
           automaticallyImplyLeading: false,
