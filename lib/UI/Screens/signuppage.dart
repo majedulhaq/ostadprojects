@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ostadprojects/Data/Model/response_data.dart';
+import 'package:ostadprojects/Data/Service/network_caller.dart';
+import 'package:ostadprojects/Data/utils/urls.dart';
 import 'package:ostadprojects/UI/Screens/loginpage.dart';
+import 'package:ostadprojects/UI/widgets/snack_bar.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -9,6 +13,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final TextEditingController _emailTEcontroller = TextEditingController();
+  final TextEditingController _firstNameTEcontroller = TextEditingController();
+  final TextEditingController _lastNameTEcontroller = TextEditingController();
+  final TextEditingController _passwordTEcontroller = TextEditingController();
+  final TextEditingController _mobileTEcontroller = TextEditingController();
+  bool _inprogress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +43,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  _signinForm(),
+                  _signUpForm(),
                   const SizedBox(height: 15),
-                  next_page_move_button(),
+                  next_page_elevated_button(),
                   const SizedBox(height: 35),
                   SizedBox(
                     width: double.infinity,
@@ -74,66 +86,153 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget next_page_move_button() {
+  Widget next_page_elevated_button() {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)))),
-        onPressed: () {},
-        child: const Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: Colors.white,
-            size: 20,
+      child: Visibility(
+        replacement: const Center(child: CircularProgressIndicator()),
+        visible: !_inprogress,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)))),
+          onPressed: OntapNextButton,
+        
+          child: const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _signinForm() {
-    return Column(
-      children: [
-        TextFormField(
-          decoration: const InputDecoration(
-            label: Text('Email'),
-            border: OutlineInputBorder(),
+  Widget _signUpForm() {
+    return Form(
+      key: _formkey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailTEcontroller,
+            decoration: const InputDecoration(
+              label: Text('Email'),
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'write Your Email';
+              }
+              return null;
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
           ),
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          decoration: const InputDecoration(
-            label: Text('First Name'),
-            border: OutlineInputBorder(),
+          const SizedBox(height: 10),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'write First Name';
+              }
+              return null;
+            },
+            controller: _firstNameTEcontroller,
+            decoration: const InputDecoration(
+              label: Text('First Name'),
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          decoration: const InputDecoration(
-            label: Text('Last Name'),
-            border: OutlineInputBorder(),
+          const SizedBox(height: 10),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'write Last Name';
+              }
+              return null;
+            },
+            controller: _lastNameTEcontroller,
+            decoration: const InputDecoration(
+              label: Text('Last Name'),
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          decoration: const InputDecoration(
-            label: Text('Mobile'),
-            border: OutlineInputBorder(),
+          const SizedBox(height: 10),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'write Mobile Number';
+              }
+              return null;
+            },
+            controller: _mobileTEcontroller,
+            decoration: const InputDecoration(
+              label: Text('Mobile'),
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          obscureText: true,
-          decoration: const InputDecoration(
-            label: Text('Password'),
-            border: OutlineInputBorder(),
+          const SizedBox(height: 10),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'write the Password';
+              }
+              return null;
+            },
+            controller: _passwordTEcontroller,
+            obscureText: true,
+            decoration: const InputDecoration(
+              label: Text('Password'),
+              border: OutlineInputBorder(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  void OntapNextButton() {
+    if (!_formkey.currentState!.validate()) {
+      _signUp();
+    }
+  }
+
+  Future<void> _signUp() async {
+    _inprogress = false;
+    setState(() {});
+    NetworkResponse response =
+        await NetworkCaller.postRequest(url: Urls.RegUrl);
+    if (response.isSuccess) {
+      _clearTextFields;
+      showSnackBarMessage(context, 'New user created');
+    } else {
+      showSnackBarMessage(context, response.errorMassage, true);
+    }
+    _inprogress = false;
+    setState(() {});
+  }
+
+  void _clearTextFields() {
+    _emailTEcontroller.clear();
+    _firstNameTEcontroller.clear();
+    _lastNameTEcontroller.clear();
+    _mobileTEcontroller.clear();
+    _passwordTEcontroller.clear();
+  }
+
+  @override
+  void dispose() {
+    _emailTEcontroller.dispose();
+    _firstNameTEcontroller.dispose();
+    _lastNameTEcontroller.dispose();
+    _mobileTEcontroller.dispose();
+    _passwordTEcontroller.dispose();
+    super.dispose();
   }
 }
