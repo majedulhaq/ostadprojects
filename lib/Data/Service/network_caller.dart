@@ -1,24 +1,21 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-
-import '../Model/response_data.dart';
+import 'package:ostadprojects/Data/Model/response_data.dart';
 
 class NetworkCaller {
-  static Future<NetworkResponse> getRequest({required String url}) async {
+ static Future<NetworkResponse> getRequest({required String url}) async {
     try {
       Uri uri = Uri.parse(url);
       debugPrint(url);
       final Response response = await get(uri);
-      printResponse(response, url);
-
+      responsePrint(url, response);
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
         return NetworkResponse(
-          isSuccess: true,
-          statusCode: response.statusCode,
-          responseData: decodedData,
-        );
+            isSuccess: true,
+            statusCode: response.statusCode,
+            responseData: decodedData);
       } else {
         return NetworkResponse(
           isSuccess: false,
@@ -31,7 +28,7 @@ class NetworkCaller {
     }
   }
 
-  static Future<NetworkResponse> postRequest(
+ static Future<NetworkResponse> postRequest(
       {required String url, Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
@@ -41,15 +38,13 @@ class NetworkCaller {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),
       );
-      printResponse(response, url);
-
+      responsePrint(url, response);
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);
         return NetworkResponse(
-          isSuccess: true,
-          statusCode: response.statusCode,
-          responseData: decodedData,
-        );
+            isSuccess: true,
+            statusCode: response.statusCode,
+            responseData: decodedData);
       } else {
         return NetworkResponse(
           isSuccess: false,
@@ -62,8 +57,9 @@ class NetworkCaller {
     }
   }
 
-  static void printResponse(Response response, String url) {
+ static void responsePrint(String url, Response response) {
     debugPrint(
-        'Url: $url \n Status code: ${response.statusCode}\n Response data: ${response.body}, ');
+      'URL: $url\nStatus code: ${response.statusCode}\nResponse Body: ${response.body}',
+    );
   }
 }
