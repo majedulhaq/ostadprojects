@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart';
 import 'package:ostadprojects/Data/Model/response_data.dart';
 import 'package:ostadprojects/Data/Service/network_caller.dart';
 import 'package:ostadprojects/Data/utils/urls.dart';
@@ -93,17 +91,13 @@ class _SignUpPageState extends State<SignUpPage> {
       width: double.infinity,
       child: Visibility(
         visible: !_inprogress,
-        replacement: const Center(
-          child: CircularProgressIndicator(
-            color: Colors.red,
-          ),
-        ),
+        replacement: const Center(child: CircularProgressIndicator()),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)))),
-          onPressed: _ontapElevatedButton,
+          onPressed: _onTapElevatedButton,
           child: const Padding(
             padding: EdgeInsets.all(10.0),
             child: Icon(
@@ -202,33 +196,33 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void _ontapElevatedButton() {
+  void _onTapElevatedButton() {
     if (_formkey.currentState!.validate()) {
-      _signUp();
+      _signin();
     }
   }
 
-  Future<void> _signUp() async {
+  Future<void> _signin() async {
     _inprogress = true;
     setState(() {});
-    Map <String, dynamic> requestBody = {
-    "email":_emailTEcontroller.text.trim(),
-    "firstName":_firstNameTEcontroller.text.trim(),
-    "lastName":_lastNameTEcontroller.text.trim(),
-    "mobile":_mobileTEcontroller.text.trim(),
-    "password":_passwordTEcontroller.text.trim(),
-    "photo":"",
-};
-    NetworkResponse response =
-        await NetworkCaller.postRequest(url: Urls.RegUrl, body: requestBody );
+    Map<String, dynamic> responseBody = {
+      "email": _emailTEcontroller.text.trim(),
+      "firstName": _firstNameTEcontroller.text.trim(),
+      "lastName": _lastNameTEcontroller.text.trim(),
+      "mobile": _mobileTEcontroller.text.trim(),
+      "password": _passwordTEcontroller.text,
+      "photo": ''
+    };
+    NetworkResponse response = await NetworkCaller.postRequest(
+      url: Urls.RegUrl,
+      body: responseBody,
+    );
     _inprogress = false;
     setState(() {});
-
     if (response.isSuccess) {
-      _clearTextFields();
-      showSnackBarMessage(context, 'New User created');
+      return showSnackBarMessage(context, 'New user created');
     } else {
-      showSnackBarMessage(context, 'Something went wrong', true);
+      return showSnackBarMessage(context, response.errorMassage, true);
     }
   }
 

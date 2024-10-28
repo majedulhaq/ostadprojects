@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ostadprojects/UI/Controllers/auth_controller.dart';
 import 'package:ostadprojects/UI/Screens/loginpage.dart';
 import 'package:ostadprojects/UI/Screens/update_profile.dart';
 import 'package:ostadprojects/UI/Utils/app_assets.dart';
@@ -52,7 +53,8 @@ class TmAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await AuthController.cleareUserData();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
                   },

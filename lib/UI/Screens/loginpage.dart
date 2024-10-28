@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ostadprojects/Data/Model/response_data.dart';
 import 'package:ostadprojects/Data/Service/network_caller.dart';
 import 'package:ostadprojects/Data/utils/urls.dart';
+import 'package:ostadprojects/UI/Controllers/auth_controller.dart';
 import 'package:ostadprojects/UI/Screens/forgot_password_email.dart';
 import 'package:ostadprojects/UI/Screens/main_bottom_nav_bar.dart';
 import 'package:ostadprojects/UI/Screens/signuppage.dart';
@@ -170,14 +171,6 @@ class _LoginPageState extends State<LoginPage> {
     _logIn();
   }
 
-
-
-
-
-
-
-
-
   Future<void> _logIn() async {
     _inprogress = true;
     setState(() {});
@@ -186,11 +179,12 @@ class _LoginPageState extends State<LoginPage> {
       "email": _emailTeController.text.trim(),
       "password": _passwordTeController.text
     };
-  final  NetworkResponse response =
+    final NetworkResponse response =
         await NetworkCaller.postRequest(url: Urls.LoginUrl, body: requestBody);
     _inprogress = false;
     setState(() {});
     if (response.isSuccess) {
+      await AuthController.saveAccessToken(response.responseData['token']);
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => MainBottomNavBar()),
